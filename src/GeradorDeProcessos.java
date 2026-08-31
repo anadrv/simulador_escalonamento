@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class GerenciadorProcessos {
+public class GeradorDeProcessos {
 
     private int proximoId = 1;
     private Random random = new Random();
