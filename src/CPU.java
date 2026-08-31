@@ -32,7 +32,6 @@ public class CPU {
             System.out.println();
             System.out.println("- CICLO " + ciclo + " -");
 
-
             if (gerador.deveGerarProcesso()) {
 
                 Processo novoProcesso =
@@ -58,7 +57,6 @@ public class CPU {
                 ciclosQuantum = 0;
             }
 
-
             if (processoAtual == null) {
 
                 System.out.println("CPU ociosa.");
@@ -70,7 +68,6 @@ public class CPU {
                                 + processoAtual.getId()
                 );
 
-                // Executa UMA instrução
                 processoAtual.executar();
 
                 System.out.println(
@@ -79,7 +76,6 @@ public class CPU {
                 );
 
                 ciclosQuantum++;
-
 
                 if (processoAtual.isFinalizado()) {
 
@@ -91,9 +87,8 @@ public class CPU {
 
                     processoAtual = null;
                     ciclosQuantum = 0;
-                }
 
-                else if (
+                } else if (
                         algoritmo ==
                                 Escalonador.Algoritmo.ROUND_ROBIN
                                 && ciclosQuantum >= quantum
