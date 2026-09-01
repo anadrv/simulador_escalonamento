@@ -18,4 +18,8 @@ public class GeradorDeProcessos {
 
         return processo;
     }
+
+    public boolean deveGerarProcesso() {
+        return random.nextInt(100) < 10;
+    }
 }
