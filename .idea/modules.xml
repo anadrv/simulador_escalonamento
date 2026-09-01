@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/simulador_escalonamento.iml" filepath="$PROJECT_DIR$/simulador_escalonamento.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/simulador_escalonamento.iml" filepath="$PROJECT_DIR$/.idea/simulador_escalonamento.iml" />
     </modules>
   </component>
 </project>
