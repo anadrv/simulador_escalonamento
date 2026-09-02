@@ -33,7 +33,7 @@ public class CPU {
         while (true) {
 
             System.out.println();
-            System.out.println("- CICLO " + ciclo + " -");
+            System.out.println("✰ CICLO " + ciclo + " ✰");
 
             if (gerador.deveGerarProcesso()) {
 
