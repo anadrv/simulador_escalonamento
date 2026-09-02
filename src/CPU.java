@@ -27,6 +27,9 @@ public class CPU {
         int ciclosQuantum = 0;
         int ciclo = 1;
 
+        Processo primeiroProcesso = gerador.gerarProcesso();
+        escalonador.adicionarProcesso(primeiroProcesso);
+
         while (true) {
 
             System.out.println();

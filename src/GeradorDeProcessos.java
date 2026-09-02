@@ -20,6 +20,6 @@ public class GeradorDeProcessos {
     }
 
     public boolean deveGerarProcesso() {
-        return random.nextInt(100) < 10;
+        return random.nextInt(100) < 20;
     }
 }
