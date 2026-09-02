@@ -33,7 +33,7 @@ public class CPU {
         while (true) {
 
             System.out.println();
-            System.out.println("✰ CICLO " + ciclo + " ✰");
+            System.out.println("\u001B[38;5;205m✰ CICLO " + ciclo + " ✰\u001B[0m");
 
             if (gerador.deveGerarProcesso()) {
 
@@ -43,10 +43,11 @@ public class CPU {
                 escalonador.adicionarProcesso(novoProcesso);
 
                 System.out.println(
-                        "Novo processo: P"
+                        "\u001B[38;5;213mNovo processo: P"
                                 + novoProcesso.getId()
                                 + " | Instruções: "
                                 + novoProcesso.getQuantidadeInstrucoes()
+                                + "\u001B[0m"
                 );
             }
 
@@ -83,9 +84,9 @@ public class CPU {
                 if (processoAtual.isFinalizado()) {
 
                     System.out.println(
-                            "Processo P"
+                            "\u001B[34mProcesso P"
                                     + processoAtual.getId()
-                                    + " finalizado!"
+                                    + " finalizado!\u001B[0m"
                     );
 
                     processoAtual = null;
@@ -98,7 +99,7 @@ public class CPU {
                 ) {
 
                     System.out.println(
-                            "Quantum encerrado para P"
+                            "- Quantum encerrado para P"
                                     + processoAtual.getId()
                     );
 

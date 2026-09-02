@@ -36,7 +36,9 @@ public class AlgoritmoEscalonamento {
     private Processo sjf(Queue<Processo> fila) {
 
 
-        System.out.println("✰ Fila de processos ✰");
+        System.out.println(
+                "\u001B[38;5;218m✰ Fila de processos: \u001B[0m"
+        );
 
         for (Processo processo : fila) {
             System.out.println(
@@ -46,6 +48,8 @@ public class AlgoritmoEscalonamento {
                             + " instruções restantes"
             );
         }
+
+        System.out.println();
 
         Processo menor = Collections.min(
                 fila,

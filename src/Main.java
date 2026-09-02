@@ -10,9 +10,9 @@ public class Main {
         System.out.println("\u001B[35m✰ Bem-vindo ao Simulador de escalonamento de processos Kpop 3/5 ✰\u001B[0m");
         System.out.println();
 
-        System.out.println("✰ 1 - FCFS");
-        System.out.println("✰ 2 - SJF");
-        System.out.println("✰ 3 - Round Robin");
+        System.out.println("\u001B[33m✰\u001B[0m 1 - FCFS");
+        System.out.println("\u001B[33m✰\u001B[0m 2 - SJF");
+        System.out.println("\u001B[33m✰\u001B[0m 3 - Round Robin");
         System.out.println();
 
         System.out.print("Escolha um dos algoritmos acima: ");
@@ -35,7 +35,7 @@ public class Main {
             case 3:
                 algoritmo = Escalonador.Algoritmo.ROUND_ROBIN;
 
-                System.out.print(" ✰✰ Digite o quantum: ");
+                System.out.print("\u001B[34m✰ Digite o quantum: \u001B[0m");
                 quantum = scanner.nextInt();
 
                 if (quantum <= 0) {
@@ -57,7 +57,9 @@ public class Main {
 
         System.out.println();
         System.out.println(
-                "✰✰✰ Algoritmo escolhido: " + algoritmo
+                "\u001B[38;5;218m✰ Algoritmo escolhido: "
+                        + algoritmo
+                        + "\u001B[0m"
         );
 
         if (algoritmo == Escalonador.Algoritmo.ROUND_ROBIN) {
