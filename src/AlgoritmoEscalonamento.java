@@ -35,6 +35,20 @@ public class AlgoritmoEscalonamento {
 
     private Processo sjf(Queue<Processo> fila) {
 
+        // Exibe todos os processos que estão esperando
+        System.out.println("Fila de processos:");
+
+        for (Processo processo : fila) {
+            System.out.println(
+                    "P" + processo.getId()
+                            + " - "
+                            + processo.getQuantidadeInstrucoes()
+                            + " instruções restantes"
+            );
+        }
+
+        // Encontra o processo com menor quantidade
+        // de instruções restantes
         Processo menor = Collections.min(
                 fila,
                 Comparator.comparingInt(
@@ -42,7 +56,17 @@ public class AlgoritmoEscalonamento {
                 )
         );
 
+        // Remove o processo escolhido da fila
         fila.remove(menor);
+
+        // Mostra qual processo foi escolhido
+        System.out.println(
+                "Processo escolhido pelo SJF: P"
+                        + menor.getId()
+                        + " - "
+                        + menor.getQuantidadeInstrucoes()
+                        + " instruções"
+        );
 
         return menor;
     }
