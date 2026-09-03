@@ -1,89 +1,72 @@
-## 🐾 Simulador de escalonamento de processos 🐾
+# 🐾 Simulador de Escalonamento de Processos 🐾
 
-Projeto desenvolvido para a Fase 01 da competência Desenvolver Simulador de Abstrações de Recursos de S.O. 
+Projeto desenvolvido para a Fase 01 da competência **Desenvolver Simulador de Abstrações de Recursos de S.O.**
 
+## 🐈 Sobre o projeto
 
+O sistema simula o funcionamento de uma CPU responsável pela execução de processos que chegam de forma periódica.
 
-### 🐈 Sobre o projeto
+Cada processo possui um identificador único e uma quantidade de instruções, que são executadas uma por vez a cada ciclo de clock. Quando todas as instruções são executadas, o processo é finalizado.
 
-O sistema simula uma CPU executando processos que chegam de forma periódica. Cada processo possui um identificador único e uma quantidade aleatória de instruções que precisam ser executadas.
-
-A cada ciclo de clock, a CPU solicita ao escalonador o próximo processo que deve ser executado.
-
-O projeto implementa três algoritmos de escalonamento:
+O simulador implementa três algoritmos de escalonamento:
 
 * **FCFS (First Come, First Served)**
 * **SJF (Shortest Job First)**
 * **Round Robin**
 
-
 ## 🐈 Funcionamento
 
-### 😺 Processo
+A simulação ocorre em ciclos de clock. A cada ciclo, a CPU pode receber novos processos, solicita ao escalonador o próximo processo e executa uma instrução.
 
-Cada processo possui:
+O fluxo da simulação é:
 
-* **ID:** identificador único e incremental;
-* **Quantidade de instruções:** valor aleatório entre 10 e 50.
+1. Verificar se um novo processo deve ser gerado;
+2. Adicionar o processo à fila de prontos;
+3. Selecionar o próximo processo de acordo com o algoritmo escolhido;
+4. Executar uma instrução;
+5. Atualizar a quantidade de instruções restantes;
+6. Verificar se o processo foi finalizado;
+7. No Round Robin, verificar o término do quantum;
+8. Avançar para o próximo ciclo.
 
-A cada interação com a CPU, uma instrução é executada e a quantidade restante é reduzida em 1.
+A CPU permanece em execução por meio de um laço contínuo, permitindo a chegada e execução de novos processos durante a simulação.
 
-Quando a quantidade de instruções chega a zero, o processo é finalizado.
+### 😺 Geração de processos
 
+Os processos são criados pelo `GeradorDeProcessos`.
 
-### 😺 Gerador de Processos
+Cada processo recebe:
 
-O `GeradorDeProcessos` é responsável por criar novos processos.
+* um **ID único e incremental**;
+* uma quantidade aleatória de **10 a 50 instruções**.
 
-Os processos são gerados de forma periódica e recebem:
+A geração ocorre de forma periódica, com uma pequena probabilidade de criação a cada ciclo da CPU.
 
-* um ID único;
-* uma quantidade aleatória de instruções entre 10 e 50.
+### 😺 Escalonamento
 
-Existe uma pequena chance de um novo processo ser gerado a cada ciclo da CPU.
+O `Escalonador` mantém a fila de processos prontos e utiliza o algoritmo selecionado para determinar qual processo receberá a CPU.
 
+* **FCFS:** seleciona o processo que está há mais tempo na fila;
+* **SJF:** seleciona o processo com menor quantidade de instruções;
+* **Round Robin:** alterna entre os processos utilizando uma fatia de tempo definida pelo quantum.
 
-### 😺 Escalonador
+### 😺 Round Robin
 
-O `Escalonador` mantém a fila de processos prontos e determina qual processo será executado pela CPU.
-
-O algoritmo utilizado pode ser configurado entre:
-
-* **FCFS:** executa os processos na ordem em que chegaram;
-* **SJF:** seleciona o processo com a menor quantidade de instruções;
-* **Round Robin:** cada processo recebe uma fatia de tempo definida pelo quantum.
-  
-
-### 😺 CPU
-
-A CPU possui um laço infinito, no qual cada repetição representa um ciclo de clock.
-
-Em cada ciclo:
-
-1. Verifica se um novo processo deve ser gerado;
-2. Adiciona o processo ao escalonador;
-3. Solicita o próximo processo ao escalonador;
-4. Executa uma instrução;
-5. Verifica se o processo foi finalizado;
-6. No Round Robin, verifica se o quantum foi atingido;
-7. Aguarda um pequeno intervalo antes do próximo ciclo.
-   
-
-## 😺 Round Robin
-
-No algoritmo Round Robin, cada processo recebe uma quantidade limitada de ciclos da CPU, definida pelo **quantum**.
+No Round Robin, cada processo recebe um número limitado de ciclos da CPU, definido pelo **quantum**.
 
 Por exemplo, com `quantum = 2`:
 
 ```text
-P1 → executa 2 ciclos
-P2 → executa 2 ciclos
-P3 → executa 2 ciclos
-P1 → executa novamente
+P1 → 2 ciclos
+P2 → 2 ciclos
+P3 → 2 ciclos
+P1 → novamente
 ...
 ```
 
-Caso um processo termine antes de utilizar todo o quantum, ele é finalizado e não retorna para a fila.
+Quando o quantum termina e o processo ainda não foi finalizado, ele retorna ao final da fila para aguardar uma nova oportunidade de execução.
+
+Caso o processo termine antes do quantum, ele é removido da fila.
 
 ### 😺 Exemplo de execução
 
@@ -108,16 +91,11 @@ Executando processo P1
 Instruções restantes: 34
 ```
 
-A quantidade de instruções e o momento de chegada dos processos são determinados aleatoriamente.
+Como a geração dos processos é aleatória, a quantidade de instruções e o momento de chegada podem variar a cada execução.
 
-### 🐈 Tecnologias
+## 🐈 Estrutura do projeto
 
-* Java
-* IntelliJ IDEA
-* Git
-* GitHub
-
-### 🐈 Estrutura do projeto
+As classes foram separadas de acordo com suas responsabilidades dentro da simulação, reduzindo o acoplamento e facilitando a manutenção e evolução do projeto.
 
 ```text
 src/
@@ -129,7 +107,38 @@ src/
 └── AlgoritmoEscalonamento.java
 ```
 
-### 🐈 Como executar
+### 😺 `Main.java`
+
+Ponto de entrada da aplicação. Responsável por inicializar os componentes, configurar o algoritmo e definir o quantum quando necessário.
+
+### 😺 `Processo.java`
+
+Representa o processo e mantém seu estado, incluindo ID e quantidade de instruções. Também controla a execução e verifica sua finalização.
+
+### 😺 `GeradorDeProcessos.java`
+
+Responsável pela criação dos processos, geração dos IDs e definição aleatória da quantidade de instruções.
+
+### 😺 `Escalonador.java`
+
+Gerencia a fila de processos prontos e disponibiliza os processos para serem selecionados pelo algoritmo de escalonamento.
+
+### 😺 `AlgoritmoEscalonamento.java`
+
+Implementa a lógica de seleção dos processos para os algoritmos **FCFS, SJF e Round Robin**.
+
+### 😺 `CPU.java`
+
+Coordena a execução da simulação, controlando os ciclos de clock, a execução dos processos, a finalização e o quantum do Round Robin.
+
+## 🐈 Tecnologias
+
+* Java
+* IntelliJ IDEA
+* Git
+* GitHub
+
+## 🐈 Como executar
 
 1. Clone o repositório:
 
@@ -137,12 +146,10 @@ src/
 git clone URL_DO_REPOSITORIO
 ```
 
-2. Abra o projeto no IntelliJ IDEA.
+2. Abra o projeto no **IntelliJ IDEA**.
 
 3. Execute a classe `Main`.
 
 4. Escolha o algoritmo de escalonamento.
 
-5. Caso escolha Round Robin, informe o quantum.
-
-
+5. Caso escolha **Round Robin**, informe o quantum.
